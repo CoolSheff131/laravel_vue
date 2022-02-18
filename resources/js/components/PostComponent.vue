@@ -1,7 +1,7 @@
 <template>
 <div>
     <IndexComponent></IndexComponent>
-    <CreateComponent></CreateComponent>
+    <CreateComponent ref="index"></CreateComponent>
 </div>
 </template>
 
