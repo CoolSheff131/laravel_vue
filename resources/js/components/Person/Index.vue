@@ -6,6 +6,7 @@
                   <th>Name</th>
                   <th>Age</th>
                   <th>Job</th>
+                  <th>Edit</th>
               </tr>
           </thead>
           <tbody>
@@ -13,6 +14,9 @@
                   <th>{{ person.name}}</th>
                   <th>{{ person.age}}</th>
                   <th>{{ person.job}}</th>
+                  <th>
+                      <router-link :to="{name: 'person.edit', params:{id: person.id}}">Edit</router-link>
+                  </th>
               </tr>
           </tbody>
       </table>
