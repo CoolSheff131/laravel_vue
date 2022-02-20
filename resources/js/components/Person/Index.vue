@@ -23,7 +23,7 @@
                       <router-link :to="{name: 'person.edit', params:{id: person.id}}">Edit</router-link>
                   </th>
                   <th>
-                      <a @click.prevent="deletePerson(person.id)" href="" class="btn btn-outline-danger">Delete</a>
+                      <a @click.prevent="$store.dispatch('deletePerson',person.id)" href="" class="btn btn-outline-danger">Delete</a>
                   </th>
               </tr>
           </tbody>
@@ -33,30 +33,20 @@
 
 <script>
 export default {
-name: 'Index',
-data(){
-    return{
-        people: null
-    }
-},
+    name: 'Index',
 
-mounted(){
-this.getPeople()
-},
-methods:{
-    getPeople(){
-        axios.get('/api/people')
-        .then(res=>{
-            this.people = res.data.data
-        })
+    mounted(){
+        this.$store.dispatch('getPeople')
     },
-    deletePerson(id){
-        axios.delete('/api/people/'+id)
-        .then(res=>{
-            this.getPeople()
-        })
+    methods:{
+
     },
-}
+
+    computed:{
+        people(){
+            return this.$store.getters.people
+        }
+    }
 }
 </script>
 

@@ -10,12 +10,13 @@
           <input type="text" v-model="job" placeholder="job" class="form-control">
       </div>
       <div class="mb-3">
-          <input :disabled="!isDisabled" @click.prevent="store" type="submit" value="Add" class="btn btn-primary">
+          <input :disabled="!isDisabled" @click.prevent="$store.dispatch('store',{ name, age ,job })" type="submit" value="Add" class="btn btn-primary">
       </div>
   </div>
 </template>
 
 <script>
+import {mapGetters}from 'vuex'
 export default {
     name: 'Create',
 
@@ -26,18 +27,17 @@ export default {
             age: null,
         }
     },
+
+    mounted(){
+        this.$store.commit('setPerson',{name: null, age: null, job: null})
+    },
     methods:{
-        store(){
-            axios.post('/api/people', {name: this.name, age:this.age, job: this.job})
-            .then(res=>{
-                this.$router.push({name: 'person.index'})
-            })
-        }
     },
     computed:{
-        isDisabled(){
-            return this.name && this.job && this.age
-        }
+        ...mapGetters({
+            isDisabled:'isDisabled',
+            person: 'person',
+        })
     }
 }
 </script>
